@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "npx tsx server/index.ts",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\""

@@ -1,5 +1,6 @@
 import mongoose, { Schema, type InferSchemaType } from 'mongoose';
 
+
 const transactionSchema = new Schema(
   {
     id: { type: Number, required: true },
@@ -15,6 +16,9 @@ const transactionSchema = new Schema(
   },
   { versionKey: false }
 );
+
+// Compound unique index for (userId, id)
+transactionSchema.index({ userId: 1, id: 1 }, { unique: true });
 
 export type ITransaction = InferSchemaType<typeof transactionSchema>;
 export default mongoose.model('Transaction', transactionSchema);

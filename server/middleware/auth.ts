@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { randomUUID } from 'crypto';
 
 export interface AuthRequest extends Request {
   userId: string | null;
@@ -9,7 +8,6 @@ export interface AuthRequest extends Request {
 export function extractUser(req: Request, res: Response, next: NextFunction): void {
   const authReq = req as AuthRequest;
   const authHeader = req.headers.authorization;
-  let guestSessionId = req.headers['x-guest-session'] as string | undefined;
 
   if (authHeader && authHeader.startsWith('Bearer ')) {
     const token = authHeader.split(' ')[1];
@@ -31,11 +29,7 @@ export function extractUser(req: Request, res: Response, next: NextFunction): vo
       return;
     }
   } else {
-    if (!guestSessionId) {
-      guestSessionId = randomUUID();
-      res.setHeader('x-guest-session', guestSessionId);
-    }
-    authReq.userId = guestSessionId;
+    authReq.userId = 'guest';
     return next();
   }
 }
