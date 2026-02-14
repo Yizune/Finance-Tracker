@@ -18,15 +18,16 @@ MONGO_URI=your_mongo_uri
 SUPABASE_JWT_SECRET=your_supabase_jwt_key
 
 # 4. Start the development server
-#
-# The command below is a custom script that runs both the frontend (React/Vite) and backend (Express) servers together for development convenience:
+
+# The command below is a custom script that runs both the frontend (React/Vite) 
+# and backend (Express) servers together for development convenience:
 npm run dev:all
-#
+
 # Alternatively, you can run the frontend and backend separately in two terminals:
-#
+
 # Terminal 1 (frontend):
 npm run dev
-#
+
 # Terminal 2 (backend):
 # (from the project root)
 npx tsx server/index.ts
