@@ -1,0 +1,43 @@
+.buttons {
+  margin-bottom: 50px;
+}
+.buttons .filter-buttons {
+  display: flex;
+  gap: 12px;
+}
+.buttons .filter-buttons button {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.buttons .filter-buttons button.disabled,
+.buttons .filter-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  filter: grayscale(0.3);
+}
+.buttons .filter-buttons .clear button {
+  background-color: hsl(0, 0%, 100%);
+  color: hsl(215, 25%, 12%);
+  border: 1px solid hsl(214, 20%, 88%);
+}
+.buttons .filter-buttons .add-selected button {
+  background-color: hsl(160, 84%, 39%);
+  color: white;
+}
+.buttons .filter-buttons .remove-selected button {
+  background-color: hsl(0, 85%, 60%);
+  color: white;
+}
+.buttons .filter-buttons .edit-selected button {
+  background-color: hsl(220, 90%, 56%);
+  color: white;
+}

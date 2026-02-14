@@ -1,0 +1,85 @@
+.account-menu-wrapper svg {
+  --account-icon: var(--menu-fg, #222);
+}
+
+.account-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#account-menu-btn {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background var(--menu-transition);
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#account-menu-btn:focus, #account-menu-btn:hover {
+  background: var(--menu-hover);
+}
+
+.account-menu {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  min-width: 220px;
+  background: var(--menu-bg);
+  color: var(--menu-fg);
+  border-radius: var(--menu-radius);
+  box-shadow: var(--menu-shadow);
+  padding-bottom: 0.2rem;
+  z-index: 1000;
+  display: none;
+  animation: fadeInMenu 0.18s ease;
+  border: 1px solid var(--menu-border);
+  transition: var(--menu-transition);
+}
+@keyframes fadeInMenu {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.account-menu-header {
+  padding: 0.75rem 1.25rem 0.5rem 1.25rem;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border-bottom: 1px solid var(--menu-border);
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.account-menu button[role="menuitem"] {
+  width: 100%;
+  background: none;
+  border: none;
+  color: inherit;
+  text-align: left;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--menu-transition);
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+}
+.account-menu button[role="menuitem"]:hover, .account-menu button[role="menuitem"]:focus {
+  background: var(--menu-hover);
+}
+.account-menu .menu-icon {
+  width: 1.25em;
+  height: 1.25em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5em;
+  fill: currentColor;
+  margin-top: -1px;
+}

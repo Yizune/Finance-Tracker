@@ -1,0 +1,159 @@
+import type { Response } from 'express';
+import type { AuthRequest } from '../middleware/auth';
+import Transaction from '../models/Transaction';
+
+export const getSortingFilter = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { sort } = req.query;
+    const filter: Record<string, any> = { userId: req.userId };
+
+    let sortOption: Record<string, 1 | -1> | undefined;
+    if (sort === 'asc') sortOption = { amount: -1 };
+    else if (sort === 'desc') sortOption = { amount: 1 };
+
+    const transactions = await Transaction.find(filter, '-_id').sort(sortOption);
+    res.status(200).json({ message: 'Fetched successfully!', data: transactions ?? [] });
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getTransactions = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const filter: Record<string, any> = { userId: req.userId };
+    const transactions = await Transaction.find(filter, '-_id');
+    res.status(200).json({ message: 'Fetched successfully!', data: transactions ?? [] });
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getSingleTransaction = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id as string);
+    const singleTransaction = await Transaction.findOne({ id, userId: req.userId }, '-_id');
+
+    if (!singleTransaction) {
+      res.status(404).json({ message: 'Transaction not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Fetched successfully!', data: singleTransaction });
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const getFilteredTransactions = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { type, category } = req.query;
+
+    if (!type && !category) {
+      res.status(400).json({ message: 'At least one filter parameter must be provided' });
+      return;
+    }
+
+    if (type && type !== 'income' && type !== 'expense') {
+      res.status(400).json({ message: 'Invalid.' });
+      return;
+    }
+
+    const filter: Record<string, any> = { userId: req.userId };
+    if (type) filter.type = type as string;
+    if (category) filter.category = category as string;
+
+    const transactions = await Transaction.find(filter, '-_id');
+    res.status(200).json({ message: 'Fetched successfully!', data: transactions ?? [] });
+  } catch (error) {
+    console.error('Error fetching transactions:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const postTransaction = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { type, amount, category, date, description } = req.body;
+
+    if (!type || !amount || !category || !date) {
+      res.status(400).json({ error: 'Missing required fields' });
+      return;
+    }
+
+    const lastTransaction = await Transaction.findOne({ userId: req.userId }).sort({ id: -1 });
+
+    const newTransaction = new Transaction({
+      id: lastTransaction ? lastTransaction.id + 1 : 1,
+      userId: req.userId,
+      type,
+      amount,
+      category,
+      date,
+      description,
+    });
+
+    const savedTransaction = await newTransaction.save();
+    const configuredTransaction = await Transaction.findById(savedTransaction._id, '-_id');
+
+    res.status(200).json({ message: 'Posted successfully!', data: configuredTransaction });
+  } catch (error) {
+    console.error('Error posting a transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const putTransaction = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const id = parseInt(req.params.id as string);
+    const { type, amount, category, date, description } = req.body;
+
+    if (!id || !type || !amount || !category || !date || !description) {
+      res.status(400).json({ message: 'Missing required fields' });
+      return;
+    }
+
+    const updatedTransaction = await Transaction.findOneAndUpdate(
+      { id, userId: req.userId },
+      { type, amount, category, date, description },
+      { new: true }
+    );
+
+    if (!updatedTransaction) {
+      res.status(404).json({ message: 'Transaction not found' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Transaction updated successfully!', data: updatedTransaction });
+  } catch (error) {
+    console.error('Error editing a transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
+
+export const deleteTransaction = async (req: AuthRequest, res: Response): Promise<void> => {
+  try {
+    const { ids } = req.body;
+
+    if (!Array.isArray(ids)) {
+      res.status(400).json({ message: 'Invalid ID format' });
+      return;
+    }
+
+    const deletedTransactions = await Transaction.deleteMany({
+      id: { $in: ids },
+      userId: req.userId,
+    });
+
+    if (deletedTransactions.deletedCount === 0) {
+      res.status(404).json({ message: 'No transactions found to delete.' });
+      return;
+    }
+
+    res.status(200).json({ message: 'Transaction(s) deleted successfully!', data: deletedTransactions });
+  } catch (error) {
+    console.error('Error deleting a transaction:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+};
