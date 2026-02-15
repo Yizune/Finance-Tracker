@@ -14,7 +14,6 @@ export const getSortingFilter = async (req: AuthRequest, res: Response): Promise
     const transactions = await Transaction.find(filter, '-_id').sort(sortOption);
     res.status(200).json({ message: 'Fetched successfully!', data: transactions ?? [] });
   } catch (error) {
-    console.error('Error fetching transactions:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -25,7 +24,6 @@ export const getTransactions = async (req: AuthRequest, res: Response): Promise<
     const transactions = await Transaction.find(filter, '-_id');
     res.status(200).json({ message: 'Fetched successfully!', data: transactions ?? [] });
   } catch (error) {
-    console.error('Error fetching transactions:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -42,7 +40,6 @@ export const getSingleTransaction = async (req: AuthRequest, res: Response): Pro
 
     res.status(200).json({ message: 'Fetched successfully!', data: singleTransaction });
   } catch (error) {
-    console.error('Error fetching transactions:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
@@ -75,11 +72,6 @@ export const getFilteredTransactions = async (req: AuthRequest, res: Response): 
 
 export const postTransaction = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
-    // Log the incoming request for debugging
-    console.log('POST /transactions body:', req.body);
-    console.log('POST /transactions userId:', req.userId);
-
-    // Validate required fields
     const { type, amount, category, date, description } = req.body;
     if (!type || !amount || !category || !date) {
       console.error('Missing required fields:', { type, amount, category, date });
