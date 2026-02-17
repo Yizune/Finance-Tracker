@@ -1,0 +1,154 @@
+:root {
+  --menu-bg-light: #fff;
+  --menu-bg-dark: hsl(215, 25%, 14%);
+  --menu-fg-light: #222;
+  --menu-fg-dark: hsl(210, 20%, 95%);
+  --menu-border-light: hsl(214, 20%, 88%);
+  --menu-border-dark: hsl(215, 20%, 22%);
+  --menu-hover-light: hsl(210, 20%, 98%);
+  --menu-hover-dark: hsl(215, 25%, 18%);
+  --menu-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  --menu-radius: 12px;
+  --menu-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+body.darkmode {
+  --menu-bg: var(--menu-bg-dark);
+  --menu-fg: var(--menu-fg-dark);
+  --menu-border: var(--menu-border-dark);
+  --menu-hover: var(--menu-hover-dark);
+}
+body:not(.darkmode) {
+  --menu-bg: var(--menu-bg-light);
+  --menu-fg: var(--menu-fg-light);
+  --menu-border: var(--menu-border-light);
+  --menu-hover: var(--menu-hover-light);
+}
+.darkmode {
+  background: hsl(215, 28%, 10%);
+  color: hsl(210, 20%, 95%);
+}
+.darkmode .header {
+  background: rgba(26.775, 34.2125, 44.625, 0.5);
+  border-bottom: 1px solid hsl(215, 20%, 22%);
+}
+.darkmode .app-footer {
+  background: rgba(26.775, 34.2125, 44.625, 0.5);
+  border-top: 1px solid hsl(215, 20%, 22%);
+}
+.darkmode .app-footer p {
+  color: hsl(210, 20%, 95%);
+}
+
+.darkmode .header .header-text h1 {
+  background: linear-gradient(to right, hsl(200, 95%, 50%), hsl(160, 60%, 50%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.darkmode .cards .income {
+  background: linear-gradient(to bottom, hsl(215, 25%, 14%), rgba(15.912, 182.988, 127.296, 0.15));
+  border-color: rgba(15.912, 182.988, 127.296, 0.3);
+}
+.darkmode .cards .income h4 {
+  color: hsl(160, 84%, 49%);
+}
+.darkmode .cards .income p {
+  color: hsl(160, 84%, 49%);
+}
+.darkmode .cards .expenses {
+  background: linear-gradient(to bottom, hsl(215, 25%, 14%), rgba(239.7, 66.3, 66.3, 0.15));
+  border-color: rgba(239.7, 66.3, 66.3, 0.3);
+}
+.darkmode .cards .expenses h4 {
+  color: hsl(0, 85%, 70%);
+}
+.darkmode .cards .expenses p {
+  color: hsl(0, 85%, 70%);
+}
+.darkmode .cards .balance {
+  background: linear-gradient(to bottom, hsl(215, 25%, 14%), rgba(41.82, 109.14, 243.78, 0.15));
+  border-color: rgba(41.82, 109.14, 243.78, 0.3);
+}
+.darkmode .cards .balance h4 {
+  color: hsl(220, 90%, 66%);
+}
+.darkmode .cards .balance p {
+  color: hsl(220, 90%, 66%);
+}
+.darkmode .filters .search-filter .input-wrapper .input {
+  background-color: hsl(215, 25%, 14%);
+  border-color: hsl(215, 20%, 22%);
+  color: hsl(210, 20%, 95%);
+}
+.darkmode .filters .search-filter .input-wrapper .search-icon {
+  filter: invert(0);
+}
+.darkmode .filters .category-filter select {
+  background-color: hsl(215, 25%, 14%);
+  border-color: hsl(215, 20%, 22%);
+  color: hsl(210, 20%, 95%);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+.darkmode .tableOne #transactionsTable thead {
+  background-color: hsl(215, 25%, 14%);
+  border-bottom: 1px solid hsl(215, 20%, 22%);
+}
+.darkmode .tableOne #transactionsTable tbody {
+  background-color: hsl(215, 25%, 14%);
+}
+.darkmode .tableOne #transactionsTable th,
+.darkmode .tableOne #transactionsTable td {
+  color: hsl(210, 20%, 95%);
+  border-bottom-color: hsl(215, 20%, 22%);
+}
+.darkmode .tableOne #transactionsTable .empty-state-cell .empty-content h3 {
+  color: hsl(210, 20%, 95%) !important;
+}
+.darkmode .tableOne #transactionsTable .empty-state-cell .empty-content p {
+  color: hsl(215, 15%, 65%);
+}
+.darkmode .popup .popup-content {
+  background-color: hsl(215, 25%, 14%);
+  border-color: hsl(215, 20%, 22%);
+  color: hsl(210, 20%, 95%);
+}
+.darkmode .popup .popup-content h2 {
+  color: #ffffff;
+}
+.darkmode .popup .popup-content label {
+  color: #ffffff;
+}
+.darkmode .popup .popup-content input,
+.darkmode .popup .popup-content select,
+.darkmode .popup .popup-content textarea {
+  background-color: hsl(215, 28%, 10%);
+  border-color: hsl(215, 20%, 22%);
+  color: hsl(210, 20%, 95%);
+}
+.darkmode .popup .popup-content select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+}
+.darkmode .popup .popup-content .error-text {
+  color: hsl(0, 85%, 70%);
+}
+.darkmode .popup .popup-content input.has-error,
+.darkmode .popup .popup-content select.has-error {
+  border-color: hsl(0, 85%, 70%);
+}
+.darkmode .popup .popup-content input.has-error:focus,
+.darkmode .popup .popup-content select.has-error:focus {
+  border-color: hsl(0, 85%, 70%);
+  box-shadow: 0 0 0 3px rgba(243.525, 113.475, 113.475, 0.1);
+}
+.darkmode .popup .popup-content input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+.darkmode .popup .popup-content .password-toggle {
+  color: hsl(215, 15%, 60%);
+}
+.darkmode .popup .popup-content .password-toggle:hover {
+  color: hsl(210, 20%, 90%);
+}
+.darkmode .popup .popup-content .success-text {
+  color: hsl(145, 60%, 55%);
+}

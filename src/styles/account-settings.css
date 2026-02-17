@@ -1,0 +1,42 @@
+.popup .popup-content .password-field {
+  position: relative;
+  width: 100%;
+}
+
+.popup .popup-content .password-field input {
+  width: 100%;
+  padding-right: 42px;
+}
+
+.popup .popup-content .password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: hsl(215, 15%, 45%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup .popup-content .password-toggle:hover {
+  color: hsl(215, 25%, 12%);
+}
+
+.popup .popup-content .success-text {
+  display: block;
+  color: #16a34a;
+  font-size: 12px;
+  margin-top: 4px;
+  min-height: 18px;
+}
+
+.popup .popup-content .actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
